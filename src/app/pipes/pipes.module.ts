@@ -1,12 +1,15 @@
 import { NgModule } from "@angular/core";
 import { MaritalStatusPipe } from './marital-status.pipe';
+import { CpfPipe } from './cpf.pipe';
 
 @NgModule({
    declarations: [
-      MaritalStatusPipe
+      MaritalStatusPipe,
+      CpfPipe
    ],
    exports: [
-      MaritalStatusPipe
+      MaritalStatusPipe,
+      CpfPipe
    ]
 })
 export class PipesModule {

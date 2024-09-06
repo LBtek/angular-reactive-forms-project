@@ -1,6 +1,6 @@
 import { AddressList } from "../../types/address-list"
+import { DependentsList } from "../../types/dependents-list"
 import { PhoneList } from "../../types/phone-list"
-import { IDependent } from "./dependent.interface"
 
 export interface IUser {
    name: string
@@ -12,5 +12,5 @@ export interface IUser {
    birthDate: string
    phoneList: PhoneList
    addressList: AddressList
-   dependentsList: IDependent[]
+   dependentsList: DependentsList
 }
