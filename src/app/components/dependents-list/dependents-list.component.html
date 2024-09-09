@@ -9,7 +9,7 @@
 
    <ng-template #dependentsListTemplate>
       <div *ngFor="let dependent of dependentsList">
-         <div class="grid sm:grid-cols-3">
+         <div class="p-4 grid sm:grid-cols-3">
             <app-user-info-item title="Nome" [text]="dependent.name"></app-user-info-item>
             <app-user-info-item title="Idade" [text]="dependent.age.toString()"></app-user-info-item>
             <app-user-info-item title="Documento" [text]="dependent.document | cpf : true"></app-user-info-item>
