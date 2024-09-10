@@ -19,7 +19,6 @@ export class AppComponent implements OnInit {
    userSelected: IUser = {} as IUser
 
    usersList: UsersListResponse = []
-   currentTabIndex: number = 0
 
    constructor(
       private readonly _countriesService: CountriesService,
@@ -41,7 +40,6 @@ export class AppComponent implements OnInit {
       if (userFound) {
          this.userSelectedIndex = userIndex
          this.userSelected = structuredClone(userFound)
-         this.currentTabIndex = 0
       }
    }
 
