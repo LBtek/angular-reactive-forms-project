@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-general-informations-edit',
@@ -8,4 +8,8 @@ import { FormGroup } from '@angular/forms';
 })
 export class GeneralInformationsEditComponent {
    @Input({ required: true }) userForm!: FormGroup
+
+   get emailControl(): FormControl {
+      return this.userForm.get('generalInformations.email') as FormControl
+   }
 }
