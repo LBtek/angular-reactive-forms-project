@@ -1,7 +1,10 @@
 <mat-tab-group [(selectedIndex)]="currentTabIndex">
    <mat-tab label="Geral">
-      <app-general-informations [user]="userSelected"></app-general-informations>
+      <app-general-informations
+         *ngIf="!isInEditMode"
+         [user]="userSelected"></app-general-informations>
       <app-general-informations-edit
+         *ngIf="isInEditMode"
          [userForm]="userForm"
          [countriesList]="countriesList"
          [statesList]="statesList"
