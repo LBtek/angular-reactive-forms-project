@@ -17,7 +17,8 @@
       <div class="grid lg:grid-cols-3 gap-4">
          <mat-form-field class="w-full">
             <mat-label>País: </mat-label>
-            <input type="text" placeholder="Brazil" matInput [matAutocomplete]="autoCountry" formControlName="country">
+            <input type="text" placeholder="Brazil" matInput [matAutocomplete]="autoCountry"
+               (blur)="resetCountryInputValue()" formControlName="country">
             <mat-autocomplete #autoCountry="matAutocomplete" (optionSelected)="onCountrySelected($event)">
                <mat-option *ngFor="let country of countriesListFiltered" [value]="country.name">
                   {{ country.name }}
@@ -28,8 +29,9 @@
 
          <mat-form-field class="w-full">
             <mat-label>Estado: </mat-label>
-            <input type="text" placeholder="São Paulo" matInput [matAutocomplete]="autoState" formControlName="state">
-            <mat-autocomplete #autoState="matAutocomplete">
+            <input type="text" placeholder="São Paulo" matInput [matAutocomplete]="autoState"
+               (blur)="resetStateInputValue()" formControlName="state">
+            <mat-autocomplete #autoState="matAutocomplete" (opened)="statesListFiltered = statesList">
                <mat-option *ngFor="let state of statesListFiltered" [value]="state.name">
                   {{ state.name }}
                </mat-option>
@@ -52,7 +54,8 @@
          <mat-form-field class="w-full">
             <mat-label>Renda Mensal: </mat-label>
             <span matTextPrefix *ngIf="monthlyIncome.value">R$&nbsp;</span>
-            <input #monthlyIncome matInput placeholder="R$ 5000,00" formControlName="monthlyIncome" mask="separator.2" thousandSeparator="." decimalSeparator=",">
+            <input #monthlyIncome matInput placeholder="R$ 5000,00" formControlName="monthlyIncome" mask="separator.2"
+               thousandSeparator="." decimalSeparator=",">
             <mat-error>A Renda Mensal é obrigatória.</mat-error>
          </mat-form-field>
 

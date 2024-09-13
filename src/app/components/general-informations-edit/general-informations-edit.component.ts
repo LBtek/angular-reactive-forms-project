@@ -11,7 +11,6 @@ import { maritalStatusArray } from '../../utils/marital-status-description-map';
   styleUrl: './general-informations-edit.component.css'
 })
 export class GeneralInformationsEditComponent implements OnInit, OnChanges {
-
    countriesListFiltered: CountriesList = []
    statesListFiltered: StatesList = []
 
@@ -45,10 +44,32 @@ export class GeneralInformationsEditComponent implements OnInit, OnChanges {
    ngOnChanges(changes: SimpleChanges) {
       this.countriesListFiltered = this.countriesList
       this.statesListFiltered = this.statesList
+
+      this.resetStateInputValue()
    }
 
    onCountrySelected(event: MatAutocompleteSelectedEvent) {
       this.onCountrySelectedEmitt.emit(event.option.value)
+   }
+
+   resetCountryInputValue() {
+      setTimeout(() => {
+         const EXIST_VALUE_IN_COUNTRIES_LIST = this.countriesList.some((country) => this.countryControl.value === country.name)
+
+         if (!EXIST_VALUE_IN_COUNTRIES_LIST) {
+            this.countryControl.setValue(undefined)
+         }
+      }, 250)
+   }
+
+   resetStateInputValue() {
+      setTimeout(() => {
+         const EXIST_VALUE_IN_STATES_LIST = this.statesList.some((state) => this.stateControl.value === state.name)
+
+         if (!EXIST_VALUE_IN_STATES_LIST) {
+            this.stateControl.setValue(undefined)
+         }
+      }, 250)
    }
 
    private watchCountryFormChangesAndFilter() {

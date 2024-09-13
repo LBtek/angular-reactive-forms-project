@@ -12,7 +12,7 @@
    </mat-tab>
    <mat-tab label="Contato">
       <app-contact-informations [user]="userSelected"></app-contact-informations>
-      <app-contact-informations-edit></app-contact-informations-edit>
+      <app-contact-informations-edit [userForm]="userForm"></app-contact-informations-edit>
    </mat-tab>
    <mat-tab label="Dependente">
       <app-dependents-list [dependentsList]="userSelected.dependentsList"></app-dependents-list>
