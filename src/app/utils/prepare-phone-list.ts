@@ -33,5 +33,5 @@ const formatPhoneNumberToDisplay = (phone: IPhone) => {
 }
 
 const formatPhoneNumberToEdit = (phone: IPhone) => {
-   return `${phone.internationalCode}${phone.areaCode}${phone.number}`.replace('-', '')
+   return `${phone.internationalCode}${phone.areaCode}${phone.number}`.replace(/[+\-]/g, '')
 }

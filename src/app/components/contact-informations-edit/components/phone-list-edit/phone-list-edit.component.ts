@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { preparePhoneList } from '../../../../utils/prepare-phone-list';
 import { FormArray, FormGroup } from '@angular/forms';
 
 @Component({
