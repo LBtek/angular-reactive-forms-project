@@ -14,6 +14,7 @@ import { IUser } from './interfaces/user/user.interface';
 })
 export class AppComponent implements OnInit {
    isInEditMode: boolean = false;
+   enableSaveButton: boolean = false;
 
    userSelectedIndex: number | undefined
    userSelected: IUser = {} as IUser
@@ -49,5 +50,9 @@ export class AppComponent implements OnInit {
 
    onEditButton() {
       this.isInEditMode = true
+   }
+
+   onFormStatusChange(formStatus: boolean) {
+      setTimeout(() => this.enableSaveButton = formStatus, 0)
    }
 }

@@ -8,6 +8,7 @@
 
          <app-buttons-container
             [isInEditMode]="isInEditMode"
+            [enableSaveButton]="enableSaveButton"
             (onEditButton)="onEditButton()"
             (onCancelButton)="onCancelButton()"
             *ngIf="userSelectedIndex !== undefined">
@@ -16,7 +17,8 @@
          <app-user-informations-container
             *ngIf="userSelectedIndex !== undefined"
             [isInEditMode]="isInEditMode"
-            [userSelected]="userSelected">
+            [userSelected]="userSelected"
+            (onFormStatusChange)="onFormStatusChange($event)">
 
          </app-user-informations-container>
 

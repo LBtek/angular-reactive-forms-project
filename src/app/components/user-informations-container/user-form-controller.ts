@@ -26,6 +26,10 @@ export class UserFormController {
       return this.userForm.get('generalInformations') as FormGroup
    }
 
+   get contactInformations(): FormGroup {
+      return this.userForm.get('contactInformations') as FormGroup
+   }
+
    get phoneList(): FormArray {
       return this.userForm.get('contactInformations.phoneList') as FormArray
    }
@@ -44,6 +48,8 @@ export class UserFormController {
       this.fulfillPhoneList(user.phoneList)
       this.fulfillAddressList(user.addressList)
       this.fulfillDependentsList(user.dependentsList)
+      this.userForm.markAllAsTouched()
+      this.userForm.updateValueAndValidity()
    }
 
    addDependent() {
