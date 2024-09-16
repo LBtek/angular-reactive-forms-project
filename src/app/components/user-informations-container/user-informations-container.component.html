@@ -19,8 +19,11 @@
          [userForm]="userForm"></app-contact-informations-edit>
    </mat-tab>
    <mat-tab label="Dependente">
-      <app-dependents-list [dependentsList]="userSelected.dependentsList"></app-dependents-list>
+      <app-dependents-list
+         *ngIf="!isInEditMode"
+         [dependentsList]="userSelected.dependentsList"></app-dependents-list>
       <app-dependents-list-edit
+         *ngIf="isInEditMode"
          [userForm]="userForm"
          (onAddDependent)="addDependent()"
          (onRemoveDependent)="removeDependent($event)"></app-dependents-list-edit>

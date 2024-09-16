@@ -3,7 +3,10 @@
       class="user-card-hover"
       *ngFor="let user of usersList; let idx = index"
       (click)="onUserSelected(idx)"
-      [ngClass]="{ 'user-selected': idx === userSelectedIndex }">
+      [ngClass]="{
+         'user-selected': idx === userSelectedIndex,
+         'user-card-disabled': isInEditMode && idx !== userSelectedIndex
+      }">
          <mat-card-header>
             <mat-card-title> {{ user.name }} </mat-card-title>
             <mat-card-subtitle> {{ user.email }} </mat-card-subtitle>
