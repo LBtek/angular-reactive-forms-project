@@ -39,7 +39,7 @@
       " [ngClass]="{
          'bg-green-200': !enableSaveButton,
          'bg-green-600 hover:bg-green-500': enableSaveButton,
-      }" [disabled]="!enableSaveButton" *ngIf="isInEditMode">
+      }" [disabled]="!enableSaveButton" (click)="onSaveButton()" *ngIf="isInEditMode">
 
       Salvar
 

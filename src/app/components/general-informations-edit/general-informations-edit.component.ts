@@ -45,7 +45,7 @@ export class GeneralInformationsEditComponent implements OnInit, OnChanges {
       this.countriesListFiltered = this.countriesList
       this.statesListFiltered = this.statesList
 
-      this.resetStateInputValue()
+      if (this.statesList.length) this.resetStateInputValue()
    }
 
    onCountrySelected(event: MatAutocompleteSelectedEvent) {

@@ -4,7 +4,7 @@ import { UserFormController } from './user-form-controller';
 import { CountriesService } from '../../services/countries.service';
 import { StatesService } from '../../services/states.service';
 import { CountriesList } from '../../types/countries-list';
-import { distinctUntilChanged, take } from 'rxjs';
+import { distinctUntilChanged, Subscription, take } from 'rxjs';
 import { StatesList } from '../../types/states-list';
 
 @Component({
@@ -18,6 +18,8 @@ export class UserInformationsContainerComponent extends UserFormController imple
    countriesList: CountriesList = []
    statesList: StatesList = []
 
+   private userFormValueChangesSubs!: Subscription
+
    private readonly _countriesService = inject(CountriesService)
    private readonly _statesService = inject(StatesService)
 
@@ -25,6 +27,7 @@ export class UserInformationsContainerComponent extends UserFormController imple
    @Input({ required: true }) isInEditMode: boolean = false
 
    @Output('onFormStatusChange') onFormStatusChangeEmitt = new EventEmitter<boolean>()
+   @Output('onFormFirstChange') onUserFormFirstChangeEmitt = new EventEmitter<void>()
 
    ngOnInit() {
       this.onUserFormStatusChange();
@@ -35,15 +38,23 @@ export class UserInformationsContainerComponent extends UserFormController imple
       const HAS_USER_SELECTED = changes['userSelected'] && Object.keys(changes['userSelected'].currentValue).length > 0
 
       if (HAS_USER_SELECTED) {
+         if (this.userFormValueChangesSubs) {
+            this.userFormValueChangesSubs.unsubscribe()
+         }
          this.fulfillUserForm(this.userSelected)
          this.getStatesList(this.userSelected.country)
-
+         this.onUserFormFirstChange()
          this.currentTabIndex = 0
       }
    }
 
    onCountrySelected(countryName: string) {
       this.getStatesList(countryName)
+   }
+
+   private onUserFormFirstChange() {
+      this.userFormValueChangesSubs = this.userForm.valueChanges
+         .subscribe(() => this.onUserFormFirstChangeEmitt.emit())
    }
 
    private onUserFormStatusChange() {
