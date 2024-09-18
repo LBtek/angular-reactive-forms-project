@@ -23,6 +23,7 @@ export class UserInformationsContainerComponent extends UserFormController imple
    private readonly _countriesService = inject(CountriesService)
    private readonly _statesService = inject(StatesService)
 
+   @Input() userSelectedIndex: number | undefined
    @Input({ required: true }) userSelected: IUser = {} as IUser
    @Input({ required: true }) isInEditMode: boolean = false
 
@@ -36,16 +37,20 @@ export class UserInformationsContainerComponent extends UserFormController imple
 
    ngOnChanges(changes: SimpleChanges) {
       const HAS_USER_SELECTED = changes['userSelected'] && Object.keys(changes['userSelected'].currentValue).length > 0
+      const IS_THE_SAME_USER =
+         changes['userSelectedIndex']
+         ? changes['userSelectedIndex'].currentValue === changes['userSelectedIndex'].previousValue
+         : true
 
-      if (HAS_USER_SELECTED) {
+      if ( HAS_USER_SELECTED ) {
          if (this.userFormValueChangesSubs) {
             this.userFormValueChangesSubs.unsubscribe()
          }
          this.fulfillUserForm(this.userSelected)
          this.getStatesList(this.userSelected.country)
          this.onUserFormFirstChange()
-         this.currentTabIndex = 0
       }
+      if ( !IS_THE_SAME_USER ) this.currentTabIndex = 0
    }
 
    onCountrySelected(countryName: string) {
@@ -54,6 +59,7 @@ export class UserInformationsContainerComponent extends UserFormController imple
 
    private onUserFormFirstChange() {
       this.userFormValueChangesSubs = this.userForm.valueChanges
+         .pipe(take(1))
          .subscribe(() => this.onUserFormFirstChangeEmitt.emit())
    }
 

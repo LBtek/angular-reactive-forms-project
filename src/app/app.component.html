@@ -19,9 +19,9 @@
             *ngIf="userSelectedIndex !== undefined"
             [isInEditMode]="isInEditMode"
             [userSelected]="userSelected"
+            [userSelectedIndex]="userSelectedIndex"
             (onFormStatusChange)="onFormStatusChange($event)"
             (onFormFirstChange)="onUserFormFirstChange()">
-
          </app-user-informations-container>
 
       </mat-card-content>

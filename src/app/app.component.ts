@@ -6,6 +6,9 @@ import { IUser } from './interfaces/user/user.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { IDialogConfirmationData } from './interfaces/dialog-confirmation-data.interface';
+import { UpdateUserService } from './services/update-user.service';
+import { UserFormRawValueService } from './services/user-form-raw-value.service';
+import { convertUserFormToUser } from './utils/convert-user-form-to-user';
 
 @Component({
    selector: 'app-root',
@@ -24,6 +27,8 @@ export class AppComponent implements OnInit {
 
    constructor(
       private readonly _usersService: UsersService,
+      private readonly _updateUserService: UpdateUserService,
+      private readonly _userFormRawValueService: UserFormRawValueService,
       private readonly _matDialog: MatDialog
    ) { }
 
@@ -48,9 +53,9 @@ export class AppComponent implements OnInit {
       },
          (value: boolean) => {
             if (!value) return
+            this.userSelected = structuredClone(this.userSelected)
             this.isInEditMode = false
-            this.userSelected = {} as IUser
-            this.onUserSelected(this.userSelectedIndex!)
+            this.userFormUpdated = false
          })
    }
 
@@ -65,9 +70,7 @@ export class AppComponent implements OnInit {
       },
          (value: boolean) => {
             if (!value) return
-
             this.saveUserInfos()
-
             this.isInEditMode = false
             this.userFormUpdated = false
          })
@@ -93,6 +96,14 @@ export class AppComponent implements OnInit {
    }
 
    private saveUserInfos() {
-      console.log('Valores alterados!')
+      const userFormRawValue = this._userFormRawValueService.getUserFormRawValue()
+      const newUser: IUser = convertUserFormToUser(userFormRawValue)
+
+      this._updateUserService.updateUser(newUser).subscribe((newUserResponse: IUser) => {
+         if (this.userSelectedIndex === undefined) return
+
+         this.usersList[this.userSelectedIndex] = newUserResponse
+         this.userSelected = structuredClone(newUserResponse)
+      })
    }
 }
